@@ -14,6 +14,12 @@ public class DowntimeAnalyzer
         DowntimeSummary = new Dictionary<string, TimeSpan>();
     }
 
+    public void ClearData()
+    {
+        DowntimeSummary.Clear();
+        TotalDowntime = TimeSpan.Zero;
+    }
+
     public void AnalyzeDowntime(DataTable dataTable)
     {
         foreach (DataRow row in dataTable.Rows)

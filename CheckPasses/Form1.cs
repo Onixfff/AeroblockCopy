@@ -53,7 +53,7 @@ namespace CheckPasses
             comboBox1.Items.Clear();
             comboBox1.Items.Add("Стандартный");
             comboBox1.Items.Add("Диаграмма");
-            comboBox1.Items.Add("Причины");
+            //comboBox1.Items.Add("Причины");
             comboBox1.SelectedIndex = 0;
         }
 
@@ -110,7 +110,9 @@ namespace CheckPasses
                         }
                         reader.Close();
 
+                        _analyzer.ClearData();
                         _analyzer.AnalyzeDowntime(dt);
+                        ChangeDiagram();
                         labelTotal.Text = $"Итого : {_analyzer.GetTotalTime()} пропусков";
 
                         _ds.Tables.Add(dt);
@@ -182,7 +184,9 @@ namespace CheckPasses
                             }
                             reader.Close();
 
+                            _analyzer.ClearData();
                             _analyzer.AnalyzeDowntime(dt);
+                            ChangeDiagram();
 
                             _ds.Tables.Add(dt);
                             labelTotal.Text = $"Итоги : {_analyzer.GetTotalTime()} пропусков";
@@ -333,28 +337,6 @@ namespace CheckPasses
                     if(dataGridView1.Visible == true)
                         dataGridView1.Visible = false;
 
-
-                    SeriesCollection series = new SeriesCollection();
-
-                    for (int i = 0; i < _analyzer.GetNumberTypesDowntime(); i++)
-                    {
-                        var downtime = _analyzer.GetCountTypeDowntime(i);
-                        var seconds = downtime.TotalSeconds; // Преобразование TimeSpan в секунды
-
-                        Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
-                        Random rnd = new Random();
-                        var pieSeries = new PieSeries
-                        {
-                            Values = new ChartValues<double> { seconds },
-                            Title = _analyzer.GetNameTypeDowntime(i),
-                            DataLabels = true,
-                            LabelPoint = labelPoint,
-                        };
-
-                        series.Add(pieSeries);
-                    }
-                    pieChart1.LegendLocation = LegendLocation.Right;
-                    pieChart1.Series = series;
                     break;
                 case 2:
                     if (pieChart1.Visible == true)
@@ -367,6 +349,31 @@ namespace CheckPasses
                 default:
                     break;
             }
+        }
+
+        private void ChangeDiagram()
+        {
+            SeriesCollection series = new SeriesCollection();
+
+            for (int i = 0; i < _analyzer.GetNumberTypesDowntime(); i++)
+            {
+                var downtime = _analyzer.GetCountTypeDowntime(i);
+                var seconds = downtime.TotalSeconds; // Преобразование TimeSpan в секунды
+
+                Func<ChartPoint, string> labelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+                Random rnd = new Random();
+                var pieSeries = new PieSeries
+                {
+                    Values = new ChartValues<double> { seconds },
+                    Title = _analyzer.GetNameTypeDowntime(i),
+                    DataLabels = true,
+                    LabelPoint = labelPoint,
+                };
+
+                series.Add(pieSeries);
+            }
+            pieChart1.LegendLocation = LegendLocation.Right;
+            pieChart1.Series = series;
         }
     }
 }
