@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B30CB9DB-6D30-493C-A394-01A810F4D1DF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Aeroblock</RootNamespace>
+    <AssemblyName>Aeroblock</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>D:\ProgramData\FTPData\autoclaveCopy\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://192.168.100.100/autoclaveCopy/</InstallUrl>
+    <TargetCulture>ru</TargetCulture>
+    <ProductName>Завод_Копия</ProductName>
+    <PublisherName>Concrete39</PublisherName>
+    <MinimumRequiredVersion>2.0.0.1</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>Installer.htm</WebPage>
+    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>CE778C8C2838009302835A8C71920037D449FC59</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Aeroblock_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Aeroblock_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Add_pallet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_pallet.Designer.cs">
+      <DependentUpon>Add_pallet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Add_remont_pal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_remont_pal.Designer.cs">
+      <DependentUpon>Add_remont_pal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General.Designer.cs">
+      <DependentUpon>General.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Libr.Designer.cs">
+      <DependentUpon>Libr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order_GB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Order_GB.Designer.cs">
+      <DependentUpon>Order_GB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pallet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pallet.Designer.cs">
+      <DependentUpon>Pallet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remont_pal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Remont_pal.Designer.cs">
+      <DependentUpon>Remont_pal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RZD_general.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RZD_general.Designer.cs">
+      <DependentUpon>RZD_general.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SUPP_GB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SUPP_GB.Designer.cs">
+      <DependentUpon>SUPP_GB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="user_pass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="user_pass.Designer.cs">
+      <DependentUpon>user_pass.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Add_pallet.resx">
+      <DependentUpon>Add_pallet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add_remont_pal.resx">
+      <DependentUpon>Add_remont_pal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General.resx">
+      <DependentUpon>General.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libr.resx">
+      <DependentUpon>Libr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order_GB.resx">
+      <DependentUpon>Order_GB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pallet.resx">
+      <DependentUpon>Pallet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Remont_pal.resx">
+      <DependentUpon>Remont_pal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RZD_general.resx">
+      <DependentUpon>RZD_general.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SUPP_GB.resx">
+      <DependentUpon>SUPP_GB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="user_pass.resx">
+      <DependentUpon>user_pass.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Aeroblock_TemporaryKey.pfx" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\repos\report\report\report.csproj">
+      <Project>{d77c0616-674f-40ce-8404-25abd5b90ab7}</Project>
+      <Name>report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CheckPasses\CheckPasses.csproj">
+      <Project>{b5d8e7ab-9cd0-4582-879c-331496c90659}</Project>
+      <Name>CheckPasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">
+      <Project>{6a8301cb-0aef-4c5f-b40a-3fd46b5914ae}</Project>
+      <Name>ClassLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\quality\quality.csproj">
+      <Project>{463bd912-6318-42fc-b482-fafcf7b4917d}</Project>
+      <Name>quality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Report_Silikat\Report_Silikat.csproj">
+      <Project>{dacc8996-3894-4798-8a3a-d23f537a95df}</Project>
+      <Name>Report_Silikat</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

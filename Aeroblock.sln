@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeroblock", "Aeroblock\Aeroblock.csproj", "{B30CB9DB-6D30-493C-A394-01A810F4D1DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5D8E7AB-9CD0-4582-879C-331496C90659} = {B5D8E7AB-9CD0-4582-879C-331496C90659}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{6A8301CB-0AEF-4C5F-B40A-3FD46B5914AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "report", "..\..\..\repos\report\report\report.csproj", "{D77C0616-674F-40CE-8404-25ABD5B90AB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quality", "quality\quality.csproj", "{463BD912-6318-42FC-B482-FAFCF7B4917D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report_Silikat", "Report_Silikat\Report_Silikat.csproj", "{DACC8996-3894-4798-8A3A-D23F537A95DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckPasses", "CheckPasses\CheckPasses.csproj", "{B5D8E7AB-9CD0-4582-879C-331496C90659}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B30CB9DB-6D30-493C-A394-01A810F4D1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30CB9DB-6D30-493C-A394-01A810F4D1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30CB9DB-6D30-493C-A394-01A810F4D1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30CB9DB-6D30-493C-A394-01A810F4D1DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8301CB-0AEF-4C5F-B40A-3FD46B5914AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8301CB-0AEF-4C5F-B40A-3FD46B5914AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8301CB-0AEF-4C5F-B40A-3FD46B5914AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8301CB-0AEF-4C5F-B40A-3FD46B5914AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77C0616-674F-40CE-8404-25ABD5B90AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77C0616-674F-40CE-8404-25ABD5B90AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77C0616-674F-40CE-8404-25ABD5B90AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77C0616-674F-40CE-8404-25ABD5B90AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463BD912-6318-42FC-B482-FAFCF7B4917D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463BD912-6318-42FC-B482-FAFCF7B4917D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463BD912-6318-42FC-B482-FAFCF7B4917D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463BD912-6318-42FC-B482-FAFCF7B4917D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACC8996-3894-4798-8A3A-D23F537A95DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACC8996-3894-4798-8A3A-D23F537A95DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACC8996-3894-4798-8A3A-D23F537A95DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACC8996-3894-4798-8A3A-D23F537A95DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D8E7AB-9CD0-4582-879C-331496C90659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D8E7AB-9CD0-4582-879C-331496C90659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D8E7AB-9CD0-4582-879C-331496C90659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D8E7AB-9CD0-4582-879C-331496C90659}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {293917EB-68ED-475A-84CA-195B2F516C89}
+	EndGlobalSection
+EndGlobal
