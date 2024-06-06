@@ -6,6 +6,8 @@ using System.Data;
 using System.Globalization;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.Runtime.InteropServices.ComTypes;
+using System.Xml;
 
 namespace CheckPasses
 {
@@ -71,6 +73,12 @@ namespace CheckPasses
 
         private async void ChangeViewDataGridView()
         {
+            DateTime startDate, endDate;
+            double year;
+
+            year = ReturnStartEndDate(DateTime.Now.Month, out startDate, out endDate);
+            string nameTable = $"Начало:{startDate}\nКонец:{endDate}\nГод:{year}";
+
             try
             {
                 try
@@ -84,7 +92,7 @@ namespace CheckPasses
 
             Select:
 
-                DataTable dt = new DataTable("MyTable");
+                DataTable dt = new DataTable(nameTable);
 
                 dt.Columns.Add(new DataColumn("Время начала", typeof(DateTime)));
                 dt.Columns[0].ReadOnly = true;
@@ -93,10 +101,13 @@ namespace CheckPasses
                 dt.Columns.Add(new DataColumn("Вид простоя", typeof(string)));
                 dt.Columns.Add(new DataColumn("Комментарий", typeof(string)));
 
-                string query = "SELECT Timestamp, Difference, name, Comment FROM spslogger.downtime\r\nleft join ididles on\r\ndowntime.idIdle = ididles.id ";
+                string query = "SELECT Timestamp, Difference, name, Comment FROM spslogger.downtime\r\nleft join ididles on\r\ndowntime.idIdle = ididles.id where downtime.Timestamp >= @startDate and downtime.Timestamp <= @endDate";
 
-                using (MySqlCommand cmd = new MySqlCommand(query, _mCon))
+                using (MySqlCommand cmd = new MySqlCommand(query, _mCon)) 
                 {
+                    cmd.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+                    cmd.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+
                     using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
                     {
                         while (reader.Read())
@@ -113,10 +124,11 @@ namespace CheckPasses
                         _analyzer.ClearData();
                         _analyzer.AnalyzeDowntime(dt);
                         ChangeDiagram();
-                        labelTotal.Text = $"Итого : {_analyzer.GetTotalTime()} пропусков";
+                        var time = _analyzer.GetTotalTime();
+                        labelTotal.Text = $"Итого : ({time.Days} : Дней)   ({time.Hours}:{time.Minutes}:{time.Seconds}) пропусков";
 
                         _ds.Tables.Add(dt);
-                    }
+                    } 
                 }
 
             }
@@ -126,7 +138,7 @@ namespace CheckPasses
             }
             finally { await _mCon.CloseAsync(); }
 
-            dataGridView1.DataSource = _ds.Tables["MyTable"];
+            dataGridView1.DataSource = _ds.Tables[nameTable];
         }
 
         private async void ChangeViewDataGridView(DateTime startDate, DateTime endDate, int year)
@@ -138,6 +150,10 @@ namespace CheckPasses
             if(isThisTime == true || isHave == true)
             {
                 dataGridView1.DataSource = _ds.Tables[nameTable];
+
+                _analyzer.ClearData();
+                _analyzer.AnalyzeDowntime(_ds.Tables[nameTable]);
+                ChangeDiagram();
             }
             else
             {
@@ -187,6 +203,7 @@ namespace CheckPasses
                             _analyzer.ClearData();
                             _analyzer.AnalyzeDowntime(dt);
                             ChangeDiagram();
+
 
                             _ds.Tables.Add(dt);
                             labelTotal.Text = $"Итоги : {_analyzer.GetTotalTime()} пропусков";
