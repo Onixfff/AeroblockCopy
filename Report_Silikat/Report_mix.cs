@@ -149,7 +149,6 @@ namespace Report_Silikat
             update_report_su();
             foreach (DataGridViewRow item in dataGridView1.Rows)
             {
-
                 if (item.Cells[1].Value.ToString() == "ночь")
                 {
                     item.DefaultCellStyle.BackColor = Color.LightBlue;

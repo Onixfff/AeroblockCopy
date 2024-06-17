@@ -6,14 +6,12 @@ using System.Data;
 using System.Globalization;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System.Runtime.InteropServices.ComTypes;
-using System.Xml;
 
 namespace CheckPasses
 {
     public partial class Form1 : Form
     {
-        private MySqlConnection _mCon = new MySqlConnection(ConfigurationManager.ConnectionStrings["connLocal"].ConnectionString);
+        private MySqlConnection _mCon = new MySqlConnection(ConfigurationManager.ConnectionStrings["conn5"].ConnectionString);
         private DataSet _ds = new DataSet();
         private DateTime _thisDate = DateTime.Now;
         private DowntimeAnalyzer _analyzer = new DowntimeAnalyzer();
@@ -42,6 +40,7 @@ namespace CheckPasses
 
         private void Form1_Load(object sender, System.EventArgs e)
         {
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             numericUpDown1.Minimum = 2000;
             numericUpDown1.Maximum = dateTimePicker_before.Value.Year;
             numericUpDown1.Value = dateTimePicker_before.Value.Year;

@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Press.cs" />
     <Compile Include="Report_mix.cs">
       <SubType>Form</SubType>
     </Compile>
