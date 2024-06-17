@@ -210,10 +210,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\repos\report\report\report.csproj">
-      <Project>{d77c0616-674f-40ce-8404-25abd5b90ab7}</Project>
-      <Name>report</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CheckPasses\CheckPasses.csproj">
       <Project>{b5d8e7ab-9cd0-4582-879c-331496c90659}</Project>
       <Name>CheckPasses</Name>
@@ -225,6 +221,10 @@
     <ProjectReference Include="..\quality\quality.csproj">
       <Project>{463bd912-6318-42fc-b482-fafcf7b4917d}</Project>
       <Name>quality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\report\report\report.csproj">
+      <Project>{d77c0616-674f-40ce-8404-25abd5b90ab7}</Project>
+      <Name>report</Name>
     </ProjectReference>
     <ProjectReference Include="..\Report_Silikat\Report_Silikat.csproj">
       <Project>{dacc8996-3894-4798-8a3a-d23f537a95df}</Project>
