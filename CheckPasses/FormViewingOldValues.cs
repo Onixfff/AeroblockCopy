@@ -11,8 +11,7 @@ namespace CheckPasses
 {
     public partial class Form1 : Form
     {
-        private string _conn;
-        private MySqlConnection _mCon;
+        private MySqlConnection _mCon = new MySqlConnection(ConfigurationManager.ConnectionStrings["server"].ConnectionString);
         private DataSet _ds = new DataSet();
         private DateTime _thisDate = DateTime.Now;
         private DowntimeAnalyzer _analyzer = new DowntimeAnalyzer();
@@ -33,11 +32,9 @@ namespace CheckPasses
             Декабрь
         };
 
-        public Form1(string conn)
+        public Form1()
         {
-            _conn = conn;
             InitializeComponent();
-            _mCon = new MySqlConnection(ConfigurationManager.ConnectionStrings[conn].ConnectionString);
             pieChart1.Visible = false;
         }
 

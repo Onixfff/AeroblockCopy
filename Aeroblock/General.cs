@@ -528,6 +528,8 @@ namespace Aeroblock
 
         private void неЗнаюКакНазватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CheckPasses.Form1 form1 = new CheckPasses.Form1("conn5");
+
             try
             {
                 IEnumerable<CheckPasses.Form1> list = null;
@@ -538,7 +540,7 @@ namespace Aeroblock
                 }
                 else
                 {
-                    CheckPasses.Form1 form = new CheckPasses.Form1();
+                    CheckPasses.Form1 form = new CheckPasses.Form1("conn5");
                     form.MdiParent = this;
                     form.Show();
                 }
