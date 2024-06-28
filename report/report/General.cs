@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Globalization;
+using System.Configuration;
 
 
 namespace report
@@ -13,7 +14,7 @@ namespace report
     public partial class General : Form
     {
         //MySqlConnection mCon = new MySqlConnection("Database=spslogger; Server=192.168.37.101; port=3306; username=%user_1; password=20112004; charset=utf8 ");
-        MySqlConnection mCon = new MySqlConnection("Database=spslogger; Server=192.168.100.7; port=3306; username=%user_2; password=20112004; charset=utf8 ");
+        private MySqlConnection _mCon = new MySqlConnection(ConfigurationManager.ConnectionStrings["localPc"].ConnectionString);
         //MySqlConnection mCon = new MySqlConnection("Database=spslogger; Server=localhost; port=3306; username=root; password=20112004; charset=utf8 ");
         //MySqlConnection mCon = new MySqlConnection("Database=spslogger; Server=localhost; port=3306; username=sss_root; password=12345; charset=utf8;SslMode=none;Allow User Variables=True ");
         MySqlCommand msd;
@@ -23,18 +24,25 @@ namespace report
         }
         private void CloseCon()
         {
-            if (mCon.State == ConnectionState.Open)
+            if (_mCon.State == ConnectionState.Open)
             {
-                mCon.Close();
+                _mCon.Close();
             }
         }
         private void OpenCon()
         {
-            if (mCon.State == ConnectionState.Closed)
+            if (_mCon.State == ConnectionState.Closed)
             {
                 try
                 {
-                    mCon.Open();
+                    _mCon.Open();
+                }
+                catch (MySqlException ex)
+                {
+                    if (_mCon.State != ConnectionState.Open) 
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -104,7 +112,7 @@ namespace report
   "from spslogger.mixreport as mr where Timestamp >= '" + start + " 08:00:00' and Timestamp < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00')  group by df,shift, data_52";
 #endif
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
+            MySqlDataAdapter dD = new MySqlDataAdapter(sql, _mCon);
             DataSet ds = new DataSet();
             ds.Reset();
             dD.Fill(ds, sql);
@@ -163,7 +171,7 @@ namespace report
   "from spslogger.mixreport as mr where Timestamp >= '" + start + " 08:00:00' and Timestamp < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00')  group by df,shift ";
 
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
+            MySqlDataAdapter dD = new MySqlDataAdapter(sql, _mCon);
             DataSet ds = new DataSet();
             ds.Reset();
             dD.Fill(ds, sql);
@@ -222,7 +230,7 @@ namespace report
   "from spslogger.mixreport as mr where Timestamp >= '" + start + " 08:00:00'  group by df order by min ";
 
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
+            MySqlDataAdapter dD = new MySqlDataAdapter(sql, _mCon);
             DataSet ds = new DataSet();
             ds.Reset();
             dD.Fill(ds, sql);
@@ -285,7 +293,7 @@ namespace report
   "from spslogger.mixreport as mr where Timestamp >= '" + start + " 08:00:00' and Timestamp < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00')  group by df";
 
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
+            MySqlDataAdapter dD = new MySqlDataAdapter(sql, _mCon);
             DataSet ds = new DataSet();
             ds.Reset();
             dD.Fill(ds, sql);
@@ -328,7 +336,7 @@ namespace report
         }
 
         private void update_sum()
-            
+
         {
             string sh = textBox1.Text.ToString();
             string finish = dateTimePicker_finish.Value.ToString("yyyy-MM-dd");
@@ -355,7 +363,7 @@ namespace report
 ") as brak";
             string sql3 = "(select ifnull(sum(sum_er),0) as brak from spslogger.error_mas as ms where mr.data_52 = ms.recepte and ms.data_err >= '" + start + " 08:00:00' and ms.data_err < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')" +
 ") ";
-            string sql = "SELECT data_52, (count(dbid)-"+sql3+ ") as count_1, round((count(dbid-" + sql3 + ")* '4.32'), 2) as mas," +
+            string sql = "SELECT data_52, (count(dbid)-" + sql3 + ") as count_1, round((count(dbid-" + sql3 + ")* '4.32'), 2) as mas," +
                  "concat(cast(sum(data_23) + sum(data_25) as char(10)),  ' / ', (round((((sum(data_23) + sum(data_25)) / (count(dbid-" + sql3 + ") * '4.32'))), 1))) as Lime_sum," +
                  "concat(cast(sum(data_27) + sum(data_29) as char(10)), ' / ', (round((((sum(data_27) + sum(data_29)) / (count(dbid-" + sql3 + ") * '4.32'))), 1))) as Cement_sum,  concat(cast(round(sum(data_116), 1) as char(10)), ' / ', (round((sum(data_116) / count(dbid-" + sql3 + ") / '4.32'), 1))) as Gips," +
                  "concat(cast(round(sum(data_181), 1) as char(10)), ' / ', (round((sum(data_181) / count(dbid-" + sql3 + ") / '4.32'), 1))) as Sand, " +
@@ -364,34 +372,38 @@ namespace report
 #endif
 
             //string sql = ("call spslogger.new_procedure()");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
-            DataSet ds = new DataSet();
-            ds.Reset();
-            dD.Fill(ds, sql);
-            dataGridView2.DataSource = ds.Tables[0];
-            //dataGridView1.AutoResizeColumns();
-            dataGridView2.Columns["data_52"].HeaderText = "Наименование рецепта";
-            dataGridView2.Columns["data_52"].DisplayIndex=0;
-            //dataGridView2.Columns["df"].HeaderText = "Дата";
-            //dataGridView2.Columns["Lime_1"].Visible = false;
-            //dataGridView2.Columns["Lime_2"].Visible = false;
-            //dataGridView2.Columns["Cement_1"].Visible = false;
-            //dataGridView2.Columns["Cement_2"].Visible = false;
-            //dataGridView2.Columns["shift"].HeaderText = "смена";
-            dataGridView2.Columns["count_1"].HeaderText = "Кол-во массивов";
-            dataGridView2.Columns["mas"].HeaderText = "м.куб";
-            dataGridView2.Columns["Lime_sum"].HeaderText = "Известь, кг";
-            dataGridView2.Columns["Lime_sum"].DefaultCellStyle.Format = "N2";
-            dataGridView2.Columns["Cement_sum"].HeaderText = "Цемент, кг";
-            dataGridView2.Columns["Cement_sum"].DefaultCellStyle.Format = "N2";
-            dataGridView2.Columns["Gips"].HeaderText = "Гипс, кг";
-            dataGridView2.Columns["Sand"].HeaderText = "Песок, кг";
-            dataGridView2.Columns["Additive"].HeaderText = "Добавка, кг";
-            dataGridView2.Columns["alum"].HeaderText = "Алюминий, кг";
-            dataGridView2.Columns["drob"].HeaderText = "Шары мелющие, кг";
-            dataGridView2.Columns["brak"].HeaderText = "Шламовые массивы";
+            try
+            {
+                if(_mCon.State == ConnectionState.Closed)
+                    _mCon.Open();
+                
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(sql, _mCon))
+                {
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
+                    dataGridView2.DataSource = ds.Tables[0];
+                    dataGridView2.Columns["data_52"].HeaderText = "Наименование рецепта";
+                    dataGridView2.Columns["data_52"].DisplayIndex = 0;
+                    dataGridView2.Columns["count_1"].HeaderText = "Кол-во массивов";
+                    dataGridView2.Columns["mas"].HeaderText = "м.куб";
+                    dataGridView2.Columns["Lime_sum"].HeaderText = "Известь, кг";
+                    dataGridView2.Columns["Lime_sum"].DefaultCellStyle.Format = "N2";
+                    dataGridView2.Columns["Cement_sum"].HeaderText = "Цемент, кг";
+                    dataGridView2.Columns["Cement_sum"].DefaultCellStyle.Format = "N2";
+                    dataGridView2.Columns["Gips"].HeaderText = "Гипс, кг";
+                    dataGridView2.Columns["Sand"].HeaderText = "Песок, кг";
+                    dataGridView2.Columns["Additive"].HeaderText = "Добавка, кг";
+                    dataGridView2.Columns["alum"].HeaderText = "Алюминий, кг";
+                    dataGridView2.Columns["drob"].HeaderText = "Шары мелющие, кг";
+                    dataGridView2.Columns["brak"].HeaderText = "Шламовые массивы";
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Handle exceptions
+                Console.WriteLine(ex.Message);
+            }
 
-            //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
         }
 
         private void update_sum_2()
@@ -418,33 +430,35 @@ namespace report
 "concat(cast(round(((count(dbid)-" + sql3 + ") * '4.32' * '" + sh + "'), 2) as char(10)), ' / ', '" + sh + "') as drob, "+sql2+" from spslogger.mixreport as mr where " +
 " Timestamp >= '" + start + " 08:00:00' and Timestamp < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00') ";
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
-            DataSet ds = new DataSet();
-            ds.Reset();
-            dD.Fill(ds, sql);
-            dataGridView3.DataSource = ds.Tables[0];
-            //dataGridView1.AutoResizeColumns();
-            //dataGridView3.Columns["data_52"].HeaderText = "Наименование рецепта";
-            //dataGridView3.Columns["df"].HeaderText = "Дата";
-            //dataGridView3.Columns["Lime_1"].Visible = false;
-            //dataGridView3.Columns["Lime_2"].Visible = false;
-            //dataGridView3.Columns["Cement_1"].Visible = false;
-            //dataGridView3.Columns["Cement_2"].Visible = false;
-            //dataGridView3.Columns["shift"].HeaderText = "смена";
-            dataGridView3.Columns["count_1"].HeaderText = "Кол-во массивов";
-            dataGridView3.Columns["mas"].HeaderText = "м.куб";
-            dataGridView3.Columns["Lime_sum"].HeaderText = "Известь, кг";
-            dataGridView3.Columns["Lime_sum"].DefaultCellStyle.Format = "N2";
-            dataGridView3.Columns["Cement_sum"].HeaderText = "Цемент, кг";
-            dataGridView3.Columns["Cement_sum"].DefaultCellStyle.Format = "N2";
-            dataGridView3.Columns["Gips"].HeaderText = "Гипс, кг";
-            dataGridView3.Columns["Sand"].HeaderText = "Песок, кг";
-            dataGridView3.Columns["Additive"].HeaderText = "Добавка, кг";
-            dataGridView3.Columns["alum"].HeaderText = "Алюминий, кг";
-            dataGridView3.Columns["drob"].HeaderText = "Шары мелющие, кг";
-            dataGridView3.Columns["brak"].HeaderText = "Шламовые массивы";
+            try
+            {
+                if (_mCon.State == ConnectionState.Closed)
+                    _mCon.Open();
 
-            //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(sql, _mCon))
+                {
+                    DataSet ds = new DataSet();
+                    adapter.Fill(ds);
+                    dataGridView3.DataSource = ds.Tables[0];
+                    dataGridView3.Columns["count_1"].HeaderText = "Кол-во массивов";
+                    dataGridView3.Columns["mas"].HeaderText = "м.куб";
+                    dataGridView3.Columns["Lime_sum"].HeaderText = "Известь, кг";
+                    dataGridView3.Columns["Lime_sum"].DefaultCellStyle.Format = "N2";
+                    dataGridView3.Columns["Cement_sum"].HeaderText = "Цемент, кг";
+                    dataGridView3.Columns["Cement_sum"].DefaultCellStyle.Format = "N2";
+                    dataGridView3.Columns["Gips"].HeaderText = "Гипс, кг";
+                    dataGridView3.Columns["Sand"].HeaderText = "Песок, кг";
+                    dataGridView3.Columns["Additive"].HeaderText = "Добавка, кг";
+                    dataGridView3.Columns["alum"].HeaderText = "Алюминий, кг";
+                    dataGridView3.Columns["drob"].HeaderText = "Шары мелющие, кг";
+                    dataGridView3.Columns["brak"].HeaderText = "Шламовые массивы";
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Handle exceptions
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void dataGridView_Formatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -689,7 +703,7 @@ namespace report
   "from spslogger.error_mas where data_err >= '" + start + " 08:00:00' and data_err < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00') ";
 
             // string sql = ("SELECT * FROM spslogger.configtable;");
-            MySqlDataAdapter dD = new MySqlDataAdapter(sql, mCon);
+            MySqlDataAdapter dD = new MySqlDataAdapter(sql, _mCon);
             DataSet ds = new DataSet();
             ds.Reset();
             dD.Fill(ds, sql);
