@@ -25,6 +25,7 @@ namespace Report_Silikat
         {
             InitializeComponent();
         }
+
         private void picker()
         {
             var mounth = DateTime.Now.Month;
@@ -36,6 +37,7 @@ namespace Report_Silikat
             dateTimePicker_start.Text = date.ToString();
             dateTimePicker_finish.Text = date2.ToString();
         }
+
         private void picker(int mounth)
         {
             var year = DateTime.Now.Year;
@@ -46,15 +48,17 @@ namespace Report_Silikat
             dateTimePicker_start.Text = date.ToString();
             dateTimePicker_finish.Text = date2.ToString();
         }
+
         private void update_report_su()
         {
             ReturnSqlCodeDataGridView1(out string sql, out string sql3);
 
             mCon = new MySqlConnection(connectio_silikat);
             MySqlDataAdapter dD = new MySqlDataAdapter(sql3, mCon);
+
             DataSet ds = new DataSet();
-            ds.Reset();
             dD.Fill(ds, sql);
+
             dataGridView1.DataSource = ds.Tables[0];
 
             dataGridView1.Columns["df"].HeaderText = "Дата производства";
@@ -72,10 +76,12 @@ namespace Report_Silikat
 
             mCon = new MySqlConnection(connectio_silikat);
             MySqlDataAdapter dD = new MySqlDataAdapter(sql3, mCon);
+
             DataSet ds = new DataSet();
-            ds.Reset();
             dD.Fill(ds, sql);
+
             dataGridView2.DataSource = ds.Tables[0];
+
             dataGridView2.Columns["df"].HeaderText = "Дата производства";
             dataGridView1.Columns["press"].HeaderText = "№ Пресса";
             dataGridView2.Columns["shift"].HeaderText = "Смена";
