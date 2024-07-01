@@ -92,7 +92,7 @@ namespace Report_Silikat
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            picker();
+            picker(7);
             update_report_su();
 
         }
@@ -135,7 +135,7 @@ namespace Report_Silikat
 
         private void Button6_Click(object sender, EventArgs e)
         {
-            picker(7);
+            picker(6);
             update_report_su();
         }
 
