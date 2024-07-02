@@ -100,79 +100,101 @@ namespace Report_Silikat
         {
             picker(7);
             update_report_su();
-
+            update_report_gdw2();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             picker(1);
             update_report_su();
+            update_report_gdw2();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             picker(2);
             update_report_su();
+            update_report_gdw2();
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
             picker(3);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
             picker(4);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button5_Click(object sender, EventArgs e)
         {
             picker(5);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button12_Click(object sender, EventArgs e)
         {
             picker(6);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button6_Click(object sender, EventArgs e)
         {
             picker(6);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button8_Click(object sender, EventArgs e)
         {
             picker(8);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button9_Click(object sender, EventArgs e)
         {
             picker(9);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button10_Click(object sender, EventArgs e)
         {
             picker(10);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button11_Click(object sender, EventArgs e)
         {
             picker(11);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Button13_Click(object sender, EventArgs e)
         {
             picker(12);
             update_report_su();
+            update_report_gdw2();
+
         }
 
         private void Report_press_Load(object sender, EventArgs e)
@@ -307,8 +329,11 @@ namespace Report_Silikat
                            " (select material.name from material_costumer_manufactur.material where material.id=silikat.report.idname_sand2) as 'Песок 2', round(sum(actual_sand2), 2) as 'Расход песка2, кг'  FROM silikat.report  left join silikat.recept on report.id_name_lime = recept.id  left join material_costumer_manufactur.material on material.id = report.id_name_lime " +
                            "where report.id >= '" + start + " 08:00:00' and report.id < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00')  group by 'Дата'";
 
-                    sql3 = "select \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Первый' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press \r\nwhere report_press.id >= '" + tek + " 08:00:00' \r\nand report_press.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon\r\n\r\nUNION ALL\r\n\r\nselect \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Второй' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press2.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press2 \r\nwhere report_press2.id >= '" + tek + " 08:00:00' \r\nand report_press2.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon;\r\n";
-                    
+                    sql3 = "select if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\")," +
+                        " date_format(id, \"%d %M %Y\")) as df, " +
+                        "'Первый' as press," +
+                        " if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press.id_nomenklatura) as rec, round(count(id), 2) as col, nom_vagon from silikat.report_press where report_press.id >= '" + start + " 08:00:00' \r\nand report_press.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon\r\n\r\nUNION ALL\r\n\r\nselect \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Второй' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press2.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press2 \r\nwhere report_press2.id >= '" + start + " 08:00:00' \r\nand report_press2.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon order by df";
+
                     break;
                 case Press.First:
 
@@ -324,7 +349,7 @@ namespace Report_Silikat
                             "(select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press.id_nomenklatura) as rec," +
 
                             "round(count(id), 2) as col, nom_vagon" +
-                            " from silikat.report_press where report_press.id >= '" + tek + " 08:00:00' and report_press.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')" +
+                            " from silikat.report_press where report_press.id >= '" + start + " 08:00:00' and report_press.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')" +
                             " group by df,shift,rec, nom_vagon";
                     break;
                 case Press.Second:
@@ -341,7 +366,7 @@ namespace Report_Silikat
                            "(select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press2.id_nomenklatura) as rec," +
 
                            "round(count(id), 2) as col, nom_vagon" +
-                           " from silikat.report_press2 where report_press2.id >= '" + tek + " 08:00:00' and report_press2.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')" +
+                           " from silikat.report_press2 where report_press2.id >= '" + start + " 08:00:00' and report_press2.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')" +
                            " group by df,shift,rec, nom_vagon";
                     break;
 
@@ -357,7 +382,10 @@ namespace Report_Silikat
                            " (select material.name from material_costumer_manufactur.material where material.id=silikat.report.idname_sand2) as 'Песок 2', round(sum(actual_sand2), 2) as 'Расход песка2, кг'  FROM silikat.report  left join silikat.recept on report.id_name_lime = recept.id  left join material_costumer_manufactur.material on material.id = report.id_name_lime " +
                            "where report.id >= '" + start + " 08:00:00' and report.id < concat( date_add('" + finish + "', interval 1 day), ' 08:00:00')  group by 'Дата'";
 
-                    sql3 = "select \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Первый' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press \r\nwhere report_press.id >= '" + tek + " 08:00:00' \r\nand report_press.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon\r\n\r\nUNION ALL\r\n\r\nselect \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Второй' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press2.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press2 \r\nwhere report_press2.id >= '" + tek + " 08:00:00' \r\nand report_press2.id < concat(date_add('" + tek + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon;\r\n";
+                    sql3 = "select if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\")," +
+                        " date_format(id, \"%d %M %Y\")) as df, " +
+                        "'Первый' as press," +
+                        " if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press.id_nomenklatura) as rec, round(count(id), 2) as col, nom_vagon from silikat.report_press where report_press.id >= '" + start + " 08:00:00' \r\nand report_press.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon\r\n\r\nUNION ALL\r\n\r\nselect \r\n    if (time(id) < '08:00:00', date_format(date_sub(id, INTERVAL 1 DAY), \"%d %M %Y\"), date_format(id, \"%d %M %Y\")) as df,\r\n    'Второй' as press,\r\n    if (time(id) <= '20:00:00' and time(id)>= '08:00:00', 'день', 'ночь') as shift, \r\n    (select nomenklatura.name from silikat.nomenklatura where nomenklatura.id = silikat.report_press2.id_nomenklatura) as rec,\r\n    round(count(id), 2) as col,\r\n    nom_vagon\r\nfrom silikat.report_press2 \r\nwhere report_press2.id >= '" + start + " 08:00:00' \r\nand report_press2.id < concat(date_add('" + finish + "', interval 1 day), ' 08:00:00')\r\ngroup by df, shift, rec, nom_vagon;\r\n";
 
                     break;
             }
