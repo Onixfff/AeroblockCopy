@@ -77,8 +77,12 @@
     <AssemblyOriginatorKeyFile>Aeroblock_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=8.4.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.4.0\lib\net462\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.7\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="report, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\report\report\bin\Debug\report.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
@@ -227,10 +231,6 @@
     <ProjectReference Include="..\quality\quality.csproj">
       <Project>{463bd912-6318-42fc-b482-fafcf7b4917d}</Project>
       <Name>quality</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\report\report\report.csproj">
-      <Project>{d77c0616-674f-40ce-8404-25abd5b90ab7}</Project>
-      <Name>report</Name>
     </ProjectReference>
     <ProjectReference Include="..\Report_Silikat\Report_Silikat.csproj">
       <Project>{dacc8996-3894-4798-8a3a-d23f537a95df}</Project>
