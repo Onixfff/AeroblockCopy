@@ -748,5 +748,24 @@ namespace report
         {
             update_report_month();
         }
+
+        private void ChangerColors(DataGridView dataGridView)
+        {
+
+            foreach (DataGridViewRow item in dataGridView.Rows)
+            {
+                DataGridViewCell cell = item.Cells[1]; // Выбор ячейки по индексу
+                
+                if (cell.Value != null && item.Cells[1].Value.ToString() == "ночь")
+                    item.DefaultCellStyle.BackColor = Color.LightBlue;
+                else
+                    item.DefaultCellStyle.BackColor = Color.LightYellow;
+            }
+        }
+
+        private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ChangerColors(dataGridView1);
+        }
     }
 }
