@@ -81,6 +81,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\libs\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="report">
+      <HintPath>..\..\..\..\repos\report\report\bin\Debug\report.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -210,10 +213,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\repos\report\report\report.csproj">
-      <Project>{d77c0616-674f-40ce-8404-25abd5b90ab7}</Project>
-      <Name>report</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CheckPasses\CheckPasses.csproj">
       <Project>{b5d8e7ab-9cd0-4582-879c-331496c90659}</Project>
       <Name>CheckPasses</Name>
