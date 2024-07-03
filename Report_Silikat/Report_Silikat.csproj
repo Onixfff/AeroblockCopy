@@ -178,7 +178,9 @@
     <EmbeddedResource Include="Report_press.resx">
       <DependentUpon>Report_press.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Aeroblock_TemporaryKey.pfx" />
+    <None Include="Aeroblock_TemporaryKey.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

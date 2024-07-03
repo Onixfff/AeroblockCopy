@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B5D8E7AB-9CD0-4582-879C-331496C90659}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>CheckPasses</RootNamespace>
     <AssemblyName>CheckPasses</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -58,10 +58,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8EA0AC31B10D586513B0ADC6AE7CFECB69737907</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CE778C8C2838009302835A8C71920037D449FC59</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CheckPasses_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Aeroblock_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
