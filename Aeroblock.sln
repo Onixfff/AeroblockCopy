@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report_Silikat", "Report_Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckPasses", "CheckPasses\CheckPasses.csproj", "{B5D8E7AB-9CD0-4582-879C-331496C90659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "report", "..\..\..\repos\report\report\report.csproj", "{D77C0616-674F-40CE-8404-25ABD5B90AB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "report", "report\report\report.csproj", "{D77C0616-674F-40CE-8404-25ABD5B90AB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
